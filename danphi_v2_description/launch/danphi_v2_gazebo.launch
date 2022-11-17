@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+   <!-- global params-->
+    <arg name="robot" default="danphi_v2"/>
+    <!-- Possible variants
+        FIXED_ODOM   
+        AMCL
+        GMAPPING
+    -->
+  
+    <!-- URDF description -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find danphi_v2_description)/urdf/danphi_v2.xacro'"/>
+
+   <!-- TF stuff -->
+        <!-- send fake joint values -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="False"/>
+    </node>
+
+        <!-- Combine joint values -->
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    
+        <!-- fixed odom -->
+    <node pkg="tf" type="static_transform_publisher" name="static_odom_broadcaster" args="0 0 0 0 0 0 map odom 100"/>     
+    
+    <!-- run gazebo and spawn mybot -->
+    <include file="$(find danphi_v2_description)/launch/danphi_v2_world.launch"/>
+  
+     <!-- visualization -->
+	<arg name="rviz" default="true"/> 
+	<!--node if="$(arg rviz)" pkg="rviz" type="rviz" name="$(anon rviz)" respawn="false" output="screen" args="-d $(find danphi)/src/description/rviz/example.rviz" /-->
+    <node name="rviz" pkg="rviz" type="rviz"  />      
+</launch>
