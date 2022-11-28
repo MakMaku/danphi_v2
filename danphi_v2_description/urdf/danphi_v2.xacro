@@ -9,7 +9,7 @@
   <joint name="base_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="base_link" />
-    <origin xyz="0 0 0.010" rpy="0 0 0"/>
+    <origin xyz="-2 1 0.010" rpy="0 0 0"/>
   </joint>
 
   <link name="base_link">
@@ -161,7 +161,7 @@
       <!--xacro:insert_block name="origin" /--> 
       <parent link="base_link"/>
       <child link="velodyne_base_link"/>
-	  <origin xyz="0 0 0.05867" rpy="0 0 0"/>
+	  <origin xyz="-0.0625 0 0.09375" rpy="0 0 0"/>
     </joint>
 
     <link name="velodyne_base_link">
@@ -214,7 +214,7 @@
           <ray>
             <scan>
               <horizontal>
-                <samples>2187</samples>
+                <samples>750<!--2187--></samples>
                 <resolution>1</resolution>
                 <min_angle>-${M_PI}</min_angle>
                 <max_angle>${M_PI}</max_angle>
